@@ -11,7 +11,7 @@ namespace WpfAppMailSender
         {
             InitializeComponent();
 
-            TxtSendEnd.Text = errorMessage;
+            TxtSendError.Text = errorMessage;
         }
 
         private void BtnOk_OnClick(object sender, RoutedEventArgs e)

@@ -11,10 +11,10 @@ false
 DEBUG;TRACE
 \\local.ser-genri.ru\FS\Разработка\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppMailSender\App.xaml
 241290728085
-
-10-606255222
-13-1505183044
+2-1807871200
+141401434581
+221979036640
 MainWindow.xaml;Themes\BubbleCreme\Theme.xaml;Themes\BureauBlack\Theme.xaml;Themes\BureauBlue\Theme.xaml;Themes\DavesGlossyControls\Theme.xaml;Themes\ExpressionDark\Theme.xaml;Themes\ExpressionLight\Theme.xaml;Themes\RainierOrange\Theme.xaml;Themes\RainierPurple\Theme.xaml;Themes\RainierRadialBlue\Theme.xaml;Themes\ShinyBlue\Theme.xaml;Themes\ShinyDarkGreen\Theme.xaml;Themes\ShinyDarkPurple\Theme.xaml;Themes\ShinyDarkTeal\Theme.xaml;Themes\ShinyRed\Theme.xaml;Themes\TwilightBlue\Theme.xaml;Themes\UXMusingsBubblyBlue\Theme.xaml;Themes\UXMusingsGreen\Theme.xaml;Themes\UXMusingsRed\Theme.xaml;Themes\UXMusingsRoughGreen\Theme.xaml;Themes\UXMusingsRoughRed\Theme.xaml;Themes\WhistlerBlue\Theme.xaml;WindowMessageSendError.xaml;WindowSendEnd.xaml;
 
-False
+True
 

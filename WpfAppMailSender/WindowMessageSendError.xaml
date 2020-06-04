@@ -25,7 +25,7 @@
                     <RowDefinition Height="Auto"></RowDefinition>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" TextWrapping="Wrap" x:Name="TxtSendEnd" Foreground="Crimson"
+                <TextBlock Grid.Row="0" TextWrapping="Wrap" x:Name="TxtSendError" Foreground="Crimson"
                            HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20">
                 </TextBlock>
 

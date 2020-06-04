@@ -1,0 +1,11 @@
+\\local.ser-genri.ru\FS\Разработка\Ser-Genri\GitHub\C-sharpGodLevel\TabSwitcher\bin\Release\TabSwitcher.dll
+\\local.ser-genri.ru\FS\Разработка\Ser-Genri\GitHub\C-sharpGodLevel\TabSwitcher\bin\Release\TabSwitcher.pdb
+\\local.ser-genri.ru\FS\Разработка\Ser-Genri\GitHub\C-sharpGodLevel\TabSwitcher\obj\Release\TabSwitcherControl.baml
+\\local.ser-genri.ru\FS\Разработка\Ser-Genri\GitHub\C-sharpGodLevel\TabSwitcher\obj\Release\TabSwitcherControl.g.cs
+\\local.ser-genri.ru\FS\Разработка\Ser-Genri\GitHub\C-sharpGodLevel\TabSwitcher\obj\Release\TabSwitcher_MarkupCompile.cache
+\\local.ser-genri.ru\FS\Разработка\Ser-Genri\GitHub\C-sharpGodLevel\TabSwitcher\obj\Release\TabSwitcher.g.resources
+\\local.ser-genri.ru\FS\Разработка\Ser-Genri\GitHub\C-sharpGodLevel\TabSwitcher\obj\Release\TabSwitcher.Properties.Resources.resources
+\\local.ser-genri.ru\FS\Разработка\Ser-Genri\GitHub\C-sharpGodLevel\TabSwitcher\obj\Release\TabSwitcher.csproj.GenerateResource.cache
+\\local.ser-genri.ru\FS\Разработка\Ser-Genri\GitHub\C-sharpGodLevel\TabSwitcher\obj\Release\TabSwitcher.csproj.CoreCompileInputs.cache
+\\local.ser-genri.ru\FS\Разработка\Ser-Genri\GitHub\C-sharpGodLevel\TabSwitcher\obj\Release\TabSwitcher.dll
+\\local.ser-genri.ru\FS\Разработка\Ser-Genri\GitHub\C-sharpGodLevel\TabSwitcher\obj\Release\TabSwitcher.pdb

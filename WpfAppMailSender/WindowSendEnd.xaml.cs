@@ -1,16 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+﻿using System.Windows;
 
 namespace WpfAppMailSender
 {
@@ -19,9 +7,11 @@ namespace WpfAppMailSender
     /// </summary>
     public partial class WindowSendEnd : Window
     {
-        public WindowSendEnd()
+        public WindowSendEnd(string message)
         {
             InitializeComponent();
+
+            TxtMessage.Text = message;
         }
 
         private void BtnOk_OnClick(object sender, RoutedEventArgs e)
