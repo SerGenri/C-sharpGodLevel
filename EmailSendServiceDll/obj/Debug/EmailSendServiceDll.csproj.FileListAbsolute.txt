@@ -4,3 +4,9 @@
 \\local.ser-genri.ru\FS\Разработка\Ser-Genri\GitHub\C-sharpGodLevel\EmailSendServiceDll\obj\Debug\EmailSendServiceDll.dll
 \\local.ser-genri.ru\FS\Разработка\Ser-Genri\GitHub\C-sharpGodLevel\EmailSendServiceDll\obj\Debug\EmailSendServiceDll.pdb
 \\local.ser-genri.ru\FS\Разработка\Ser-Genri\GitHub\C-sharpGodLevel\EmailSendServiceDll\obj\Debug\EmailSendServiceDll.csprojAssemblyReference.cache
+R:\Ser-Genri\GitHub\C-sharpGodLevel\EmailSendServiceDll\bin\Debug\EmailSendServiceDll.dll
+R:\Ser-Genri\GitHub\C-sharpGodLevel\EmailSendServiceDll\bin\Debug\EmailSendServiceDll.pdb
+R:\Ser-Genri\GitHub\C-sharpGodLevel\EmailSendServiceDll\obj\Debug\EmailSendServiceDll.csprojAssemblyReference.cache
+R:\Ser-Genri\GitHub\C-sharpGodLevel\EmailSendServiceDll\obj\Debug\EmailSendServiceDll.csproj.CoreCompileInputs.cache
+R:\Ser-Genri\GitHub\C-sharpGodLevel\EmailSendServiceDll\obj\Debug\EmailSendServiceDll.dll
+R:\Ser-Genri\GitHub\C-sharpGodLevel\EmailSendServiceDll\obj\Debug\EmailSendServiceDll.pdb
