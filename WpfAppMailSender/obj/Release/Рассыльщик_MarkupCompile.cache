@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-\\local.ser-genri.ru\FS\Разработка\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppMailSender\obj\Release\
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppMailSender\obj\Release\
 WpfAppMailSender
 none
 false
 TRACE
-\\local.ser-genri.ru\FS\Разработка\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppMailSender\App.xaml
-241290728085
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppMailSender\App.xaml
+5-1264831962
 2-1807871200
-13-2051173348
-22385529800
-MainWindow.xaml;Themes\BubbleCreme\Theme.xaml;Themes\BureauBlack\Theme.xaml;Themes\BureauBlue\Theme.xaml;Themes\DavesGlossyControls\Theme.xaml;Themes\ExpressionDark\Theme.xaml;Themes\ExpressionLight\Theme.xaml;Themes\RainierOrange\Theme.xaml;Themes\RainierPurple\Theme.xaml;Themes\RainierRadialBlue\Theme.xaml;Themes\ShinyBlue\Theme.xaml;Themes\ShinyDarkGreen\Theme.xaml;Themes\ShinyDarkPurple\Theme.xaml;Themes\ShinyDarkTeal\Theme.xaml;Themes\ShinyRed\Theme.xaml;Themes\TwilightBlue\Theme.xaml;Themes\UXMusingsBubblyBlue\Theme.xaml;Themes\UXMusingsGreen\Theme.xaml;Themes\UXMusingsRed\Theme.xaml;Themes\UXMusingsRoughGreen\Theme.xaml;Themes\UXMusingsRoughRed\Theme.xaml;Themes\WhistlerBlue\Theme.xaml;WindowMessageSendError.xaml;WindowSendEnd.xaml;
+18-1858929664
+1302139536695
+Views\EmailEdit.xaml;Views\EmailInfoView.xaml;Views\MainWindow.xaml;Views\WindowMessageSendError.xaml;Views\WindowSendEnd.xaml;
 
 False
 
