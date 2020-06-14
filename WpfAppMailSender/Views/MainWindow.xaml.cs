@@ -25,5 +25,10 @@ namespace WpfAppMailSender.Views
                 MainTabControl.SelectedIndex++;
             }
         }
+
+        private void BtnClock_OnClick(object sender, RoutedEventArgs e)
+        {
+            MainTabControl.SelectedItem = TabPlaner;
+        }
     }
 }

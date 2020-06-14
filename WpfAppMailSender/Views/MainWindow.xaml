@@ -6,7 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:views="clr-namespace:WpfAppMailSender.Views"
         mc:Ignorable="d"
-        Title="Рассыльщик" Height="500" Width="780" 
+        Title="Рассыльщик" Height="500" Width="800" 
         DataContext="{Binding Main, Source={StaticResource Locator}}"
         WindowStartupLocation="CenterScreen" Icon="/img/mail-icon.ico" Background="Linen">
 
@@ -117,7 +117,7 @@
                             <Label Width="200">Перейти в планировщик</Label>
 
                             <Button x:Name="BtnClock" ToolTip="Перейти в планировщик" HorizontalAlignment="Stretch"
-                                    Width="25" >
+                                    Width="25" Click="BtnClock_OnClick">
                                 <Image Source="/img/clock.png" HorizontalAlignment="Right"></Image>
                             </Button>
 

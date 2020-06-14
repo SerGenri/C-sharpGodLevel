@@ -3,3 +3,9 @@
 \\local.ser-genri.ru\FS\Разработка\Ser-Genri\GitHub\C-sharpGodLevel\EncrypterDll\obj\Debug\EncrypterDll.csproj.CoreCompileInputs.cache
 \\local.ser-genri.ru\FS\Разработка\Ser-Genri\GitHub\C-sharpGodLevel\EncrypterDll\obj\Debug\EncrypterDll.dll
 \\local.ser-genri.ru\FS\Разработка\Ser-Genri\GitHub\C-sharpGodLevel\EncrypterDll\obj\Debug\EncrypterDll.pdb
+R:\Ser-Genri\GitHub\C-sharpGodLevel\EncrypterDll\bin\Debug\EncrypterDll.dll
+R:\Ser-Genri\GitHub\C-sharpGodLevel\EncrypterDll\bin\Debug\EncrypterDll.pdb
+R:\Ser-Genri\GitHub\C-sharpGodLevel\EncrypterDll\obj\Debug\EncrypterDll.csprojAssemblyReference.cache
+R:\Ser-Genri\GitHub\C-sharpGodLevel\EncrypterDll\obj\Debug\EncrypterDll.csproj.CoreCompileInputs.cache
+R:\Ser-Genri\GitHub\C-sharpGodLevel\EncrypterDll\obj\Debug\EncrypterDll.dll
+R:\Ser-Genri\GitHub\C-sharpGodLevel\EncrypterDll\obj\Debug\EncrypterDll.pdb
