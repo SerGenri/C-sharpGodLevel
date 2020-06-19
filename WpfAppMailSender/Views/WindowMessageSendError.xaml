@@ -16,7 +16,7 @@
     <Grid>
         <Border BorderThickness="3" BorderBrush="Crimson">
 
-            <Grid Margin="5">
+            <Grid Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>

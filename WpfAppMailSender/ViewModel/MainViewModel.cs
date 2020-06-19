@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using System.Net.Mail;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using EmailSendServiceDll;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 using WpfAppMailSender.Service;
 using WpfAppMailSender.Views;
 
@@ -37,7 +34,9 @@ namespace WpfAppMailSender.ViewModel
         {
             _dataService = dataService;
 
-            CldSchedulDateTimes = DateTime.Now;
+            CalendarScheduler = DateTime.Now;
+
+            EmailsTimeDictionary = new ObservableCollection<EmailDataTimeTextClass>();
         }
 
         #region Sender Edit
@@ -46,7 +45,23 @@ namespace WpfAppMailSender.ViewModel
         private readonly IDataAccessService _dataService;
 
 
-        private CollectionView ListEmailsView { get; set; }
+        #region Filter/Sort
+
+        private CollectionViewSource _listEmailsView;
+        public ICollectionView ListEmailsView => _listEmailsView?.View;
+
+
+        private void ListEmailsViewOnFilter(object sender, FilterEventArgs e)
+        {
+            if (!(e.Item is Email email) || string.IsNullOrWhiteSpace(_emailFilterText))
+            return;
+
+            if (!email.Name.ToUpper().Contains(_emailFilterText.ToUpper()) 
+                && !email.EmailAddress.ToUpper().Contains(_emailFilterText.ToUpper()))
+                e.Accepted = false;
+        }
+
+        #endregion
 
 
         private ObservableCollection<Email> _listEmails = new ObservableCollection<Email>();
@@ -56,7 +71,16 @@ namespace WpfAppMailSender.ViewModel
         public ObservableCollection<Email> ListEmails
         {
             get => _listEmails;
-            set => Set(ref _listEmails, value);
+            set
+            {
+                Set(ref _listEmails, value);
+
+                _listEmailsView = new CollectionViewSource {Source = value};
+                _listEmailsView.Filter += ListEmailsViewOnFilter;
+                _listEmailsView.SortDescriptions.Add(new SortDescription{PropertyName = "Name", Direction = ListSortDirection.Descending});
+
+                RaisePropertyChanged(nameof(ListEmailsView));
+            }
         }
 
 
@@ -89,6 +113,7 @@ namespace WpfAppMailSender.ViewModel
                     value.PropertyChanged += ValueOnPropertyChanged;
             }
         }
+
         private void ValueOnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (string.IsNullOrEmpty(CurrentEmail.Name) || string.IsNullOrEmpty(CurrentEmail.EmailAddress))
@@ -112,29 +137,8 @@ namespace WpfAppMailSender.ViewModel
 
                 Set(ref _emailFilterText, value);
 
-                FilterEmails();
+                ListEmailsView.Refresh();
             }
-        }
-
-        private void FilterEmails()
-        {
-            ListEmailsView = (CollectionView)CollectionViewSource.GetDefaultView(ListEmails);
-
-            ListEmailsView.Filter = (obj) =>
-            {
-                Email p = obj as Email;
-
-                bool filter1 = false, filter2 = true;
-                if (EmailFilterText?.Length > 0 && p != null)
-                {
-                    string filterText = EmailFilterText.ToUpper();
-
-                    filter1 = p.Name.ToUpper().Contains(filterText);
-                    filter2 = p.EmailAddress.ToUpper().Contains(filterText);
-                }
-
-                return filter1 || filter2;
-            };
         }
 
 
@@ -142,8 +146,6 @@ namespace WpfAppMailSender.ViewModel
         {
             ListEmails = _dataService.GetEmails();
             CurrentEmail = null;
-
-            FilterEmails();
         }
         private MyRelayCommand _readAllMailsCommand;
         public MyRelayCommand ReadAllMailsCommand
@@ -197,11 +199,73 @@ namespace WpfAppMailSender.ViewModel
         #endregion
 
         #region Email Send
-                
-        public string TbSubject { get; set; }
-        public string TpTimePicker { get; set; }
-        public DateTime? CldSchedulDateTimes { get; set; }
-        public string RtbBodyMail { get; set; }
+
+        private string _tbSubject;
+        private string _tpTimePicker;
+        private DateTime? _calendarScheduler;
+        private string _rtbBodyMail;
+
+
+        public string TbSubject
+        {
+            get => _tbSubject;
+            set
+            {
+                _tbSubject = value;
+
+                Set(ref _tbSubject, value);
+
+                if (EmailsTimeDictionaryEntrySet && EmailsTimeDictionaryEntry != null) 
+                    EmailsTimeDictionaryEntry.Subject = value;
+
+                RaisePropertyChanged();
+            }
+        }
+        public string TpTimePicker
+        {
+            get => _tpTimePicker;
+            set
+            {
+                _tpTimePicker = value;
+
+                Set(ref _tpTimePicker, value);
+
+                if (EmailsTimeDictionaryEntrySet && EmailsTimeDictionaryEntry != null)
+                    EmailsTimeDictionaryEntry.TimeSend = value;
+
+                RaisePropertyChanged();
+            }
+        }
+        public DateTime? CalendarScheduler
+        {
+            get => _calendarScheduler;
+            set
+            {
+                _calendarScheduler = value;
+
+                Set(ref _calendarScheduler, value);
+
+                if (EmailsTimeDictionaryEntrySet && EmailsTimeDictionaryEntry != null && value != null)
+                    EmailsTimeDictionaryEntry.DataSend = (DateTime) value;
+
+                RaisePropertyChanged();
+            }
+        }
+        public string RtbBodyMail
+        {
+            get => _rtbBodyMail;
+            set
+            {
+                _rtbBodyMail = value;
+
+                Set(ref _rtbBodyMail, value);
+
+                if (EmailsTimeDictionaryEntrySet && EmailsTimeDictionaryEntry != null)
+                    EmailsTimeDictionaryEntry.Body = value;
+
+                RaisePropertyChanged();
+            }
+        }
 
 
         public Dictionary<string, int> SmtpServerDictionary { get; } = new Dictionary<string, int>
@@ -211,9 +275,7 @@ namespace WpfAppMailSender.ViewModel
             {"smtp.google.ru" , 25 }
         };
         public KeyValuePair<string, int> SmtpServerDictionaryEntry { get; set; }
-
-
-        public static Dictionary<string, string> SendersDictionary { get; } = new Dictionary<string, string>
+        public Dictionary<string, string> SendersDictionary { get; } = new Dictionary<string, string>
         {
             {"SendSpamBot@yandex.ru" , EncrypterDll.Encrypter.Encrypt("P@$$w0rd") },
             {"SendSpamBot@yandex.ru1" , EncrypterDll.Encrypter.Encrypt("P@$$w0rd") },
@@ -222,6 +284,147 @@ namespace WpfAppMailSender.ViewModel
             {"SendSpamBot@yandex.ru4" , EncrypterDll.Encrypter.Encrypt("P@$$w0rd") }
         };
         public KeyValuePair<string, string> SendersDictionaryEntry { get; set; }
+
+
+
+        #region Планировщик отправки
+
+
+        private ObservableCollection<EmailDataTimeTextClass> _emailsTimeDictionary;
+        public ObservableCollection<EmailDataTimeTextClass> EmailsTimeDictionary
+        {
+            get => _emailsTimeDictionary;
+            set
+            {
+                _emailsTimeDictionary = value;
+
+                Set(ref _emailsTimeDictionary, value);
+
+                RaisePropertyChanged();
+            }
+        }
+
+        public bool EmailsTimeDictionaryEntrySet { get; set; }
+        private EmailDataTimeTextClass _emailsTimeDictionaryEntry;
+        public EmailDataTimeTextClass EmailsTimeDictionaryEntry
+        {
+            get => _emailsTimeDictionaryEntry;
+            set
+            {
+                _emailsTimeDictionaryEntry = value;
+
+                Set(ref _emailsTimeDictionaryEntry, value);
+
+                EmailsTimeDictionaryEntrySet = false;
+
+                CalendarScheduler = value?.DataSend;
+                TpTimePicker = value?.TimeSend;
+                TbSubject = value?.Subject;
+                RtbBodyMail = value?.Body;
+
+                EmailsTimeDictionaryEntrySet = true;
+
+                RaisePropertyChanged();
+            }
+        }
+
+
+        /// <summary>
+        /// Метод, который превращает строку из текстбокса tbTimePicker в TimeSpan
+        /// </summary>
+        /// <param name="strSendTime"></param>
+        /// <returns></returns>
+        protected virtual TimeSpan GetSendTime​(string strSendTime)
+        {
+            TimeSpan tsSendTime = new TimeSpan();
+
+            try
+            {
+                tsSendTime = TimeSpan.Parse(strSendTime);
+            }
+            catch (Exception)
+            {
+                // Exception
+            }
+
+            return tsSendTime;
+        }
+
+        private MyRelayCommand _emailsTimeDictionaryAdd;
+        public MyRelayCommand EmailsTimeDictionaryAddCommand
+        {
+            get
+            {
+                return _emailsTimeDictionaryAdd ??
+                       (_emailsTimeDictionaryAdd = new MyRelayCommand(obj =>
+                       {
+                           //разбираем дату время
+                           TimeSpan tsSendTime = GetSendTime​(TpTimePicker);
+                           if (tsSendTime == new TimeSpan())
+                           {
+                               MessageErrorWindow("Некорректный формат даты");
+                               return;
+                           }
+                           DateTime dtSenDateTime = CalendarScheduler.GetValueOrDefault().Date.Add(tsSendTime);
+                           if (dtSenDateTime < DateTime.Now)
+                           {
+                               MessageErrorWindow("Дата и время отправки писем не могут быть раньше, чем настоящее время");
+                               return;
+                           }
+
+                           if (!Check(RtbBodyMail, "null", "null", TbSubject)) return;
+
+                           if (EmailsTimeDictionary.Any(x=>x.DataSend.Equals(dtSenDateTime)))
+                           {
+                               MessageErrorWindow("Такие дата и время уже есть");
+                               return;
+                           }
+
+                           //формируем текст письма
+                           EmailDataTimeTextClass objClass = new EmailDataTimeTextClass
+                           {
+                               DataSend = dtSenDateTime.Date, 
+                               TimeSend = new DateTime(1,1,1, dtSenDateTime.TimeOfDay.Hours, 
+                                   dtSenDateTime.TimeOfDay.Minutes,0).ToShortTimeString(), 
+                               Subject = TbSubject, 
+                               Body = RtbBodyMail
+                           };
+
+                           EmailsTimeDictionary.Add(objClass);
+
+                           EmailsTimeDictionaryEntry = null;
+                           TbSubject = null;
+                           RtbBodyMail = null;
+                           CalendarScheduler = DateTime.Now;
+                           TpTimePicker = DateTime.Now.ToShortTimeString();
+                       }));
+            }
+        }
+
+
+        private MyRelayCommand _emailsTimeDictionaryRemove;
+        public MyRelayCommand EmailsTimeDictionaryRemoveCommand
+        {
+            get
+            {
+                return _emailsTimeDictionaryRemove ??
+                       (_emailsTimeDictionaryRemove = new MyRelayCommand(obj =>
+                       {
+                           if (obj is EmailDataTimeTextClass objClass)
+                           {
+                               EmailsTimeDictionary.Remove(objClass);
+
+                               EmailsTimeDictionaryEntry = null;
+                               TbSubject = null;
+                               RtbBodyMail = null;
+                           }
+
+                       }));
+            }
+        }
+
+
+        #endregion
 
 
 
@@ -313,6 +516,8 @@ namespace WpfAppMailSender.ViewModel
                 if (objSender)
                 {
                     MessageInfoWindow("Почта отправлена по расписанию");
+
+                    EmailsTimeDictionary = new ObservableCollection<EmailDataTimeTextClass>();
                 }
                 else
                 {
@@ -353,11 +558,14 @@ namespace WpfAppMailSender.ViewModel
                                //отправка на список
                                try
                                {
-                                   EmailSendServiceClass emailSender = new EmailSendServiceClass(strLogin, strPass, strMailAddressFrom, strSubject, strBody,
-                                       true, strServerName, serverPort);
+                                   EmailSendServiceClass emailSender = new EmailSendServiceClass(strLogin, strPass, strMailAddressFrom, 
+                                       strSubject, strBody, true, strServerName, serverPort);
 
                                    if (emailSender.SendMails(listEmails))
                                    {
+                                       if (EmailsTimeDictionaryEntry != null)
+                                           EmailsTimeDictionary.Remove(EmailsTimeDictionaryEntry);
+
                                        MessageInfoWindow("Почта отправлена");
                                    }
                                }
@@ -386,27 +594,11 @@ namespace WpfAppMailSender.ViewModel
                            string strLogin = SendersDictionaryEntry.Key;
                            string strPass = EncrypterDll.Encrypter.Deencrypt(SendersDictionaryEntry.Value);
                            string strMailAddressFrom = SendersDictionaryEntry.Key;
-                           string strSubject = TbSubject;
-                           string strBody = RtbBodyMail;
                            string strServerName = SmtpServerDictionaryEntry.Key;
                            int serverPort = SmtpServerDictionaryEntry.Value;
                            SchedulerClass sc = new SchedulerClass();
 
-                           TimeSpan tsSendTime = sc.GetSendTime​(TpTimePicker);
-                           if (tsSendTime == new TimeSpan())
-                           {
-                               MessageErrorWindow("Некорректный формат даты");
-                               return;
-                           }
-
-                           DateTime dtSenDateTime = CldSchedulDateTimes.GetValueOrDefault().Date.Add(tsSendTime);
-                           if (dtSenDateTime < DateTime.Now)
-                           {
-                               MessageErrorWindow("Дата и время отправки писем не могут быть раньше, чем настоящее время");
-                               return;
-                           }
-
-                           if (!Check(strBody, strLogin, strPass, strSubject)) return;
+                           if (!Check("null", strLogin, strPass, "null")) return;
 
                            //подготовка списка
                            List<string> listEmails = new List<string>();
@@ -417,12 +609,16 @@ namespace WpfAppMailSender.ViewModel
 
                            if (listEmails.Count > 0)
                            {
-                               EmailSendServiceClass emailSender = new EmailSendServiceClass(strLogin, strPass, strMailAddressFrom, strSubject, strBody,
-                                   true, strServerName, serverPort);
                                sc.EventTimerTick += EventTimerTick;
-                               sc.TimerSendEmails​Start(dtSenDateTime, listEmails, emailSender);
+                               sc.TimerSendEmails​Start(EmailsTimeDictionary, listEmails, strLogin, strPass, strMailAddressFrom, strServerName, serverPort);
 
-                               MessageInfoWindow($"Запущена оправка по расписанию{Environment.NewLine}почта будет отправлена в{Environment.NewLine}{dtSenDateTime}");
+                               string strDate = String.Empty;
+                               foreach (EmailDataTimeTextClass objClass in EmailsTimeDictionary)
+                               {
+                                   strDate += $"{objClass.DataSend.ToShortDateString()} {objClass.TimeSend}" + Environment.NewLine;
+                               }
+
+                               MessageInfoWindow($"Запущена оправка по расписанию{Environment.NewLine}почта будет отправлена в{Environment.NewLine}{strDate}");
                            }
                            else
                            {

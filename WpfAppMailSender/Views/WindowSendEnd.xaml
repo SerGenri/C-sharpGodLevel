@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfAppMailSender"
         mc:Ignorable="d"
-        Title="Ура!!!" Height="150" Width="400" WindowStartupLocation="CenterOwner" WindowStyle="None" ResizeMode="NoResize" Background="Linen">
+        Title="Ура!!!" Height="150" Width="400" WindowStartupLocation="CenterOwner" SizeToContent="Height" WindowStyle="None" 
+        ResizeMode="NoResize" Background="Linen">
 
     <Window.Resources>
 
@@ -15,7 +16,7 @@
     <Grid>
         <Border BorderThickness="3" BorderBrush="Green">
 
-            <Grid Margin="5">
+            <Grid Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"></RowDefinition>
                     <RowDefinition Height="Auto"></RowDefinition>

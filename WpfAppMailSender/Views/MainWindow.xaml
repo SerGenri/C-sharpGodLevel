@@ -6,9 +6,9 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:views="clr-namespace:WpfAppMailSender.Views"
         mc:Ignorable="d"
-        Title="Рассыльщик" Height="500" Width="800" 
+        Title="Рассыльщик" Height="600" Width="800" 
         DataContext="{Binding Main, Source={StaticResource Locator}}"
-        WindowStartupLocation="CenterScreen" Icon="/img/mail-icon.ico" Background="Linen">
+        WindowStartupLocation="CenterScreen" Icon="/img/mail-icon.ico">
 
     <DockPanel>
         <Menu DockPanel.Dock="Top">
@@ -44,6 +44,46 @@
         </Grid>
 
         <TabControl x:Name="MainTabControl">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="HeaderTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" TextWrapping="Wrap" />
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border Name="Border" BorderThickness="1,1,1,0" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,2,2,0">
+                                    <TextBlock x:Name="TextBlockTabItemHeader" FontSize="12" TextWrapping="Wrap" Margin="40,2">
+                                                        <ContentPresenter ContentSource="Header" />
+                                    </TextBlock>
+                                </Border>
+
+
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="CornflowerBlue" />
+                                        <Setter TargetName="TextBlockTabItemHeader" Property="Foreground"
+                                                Value="White" />
+                                        <Setter TargetName="TextBlockTabItemHeader" Property="FontWeight"
+                                                Value="Bold" />
+                                    </Trigger>
+
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="AntiqueWhite" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+
+
             <TabItem x:Name="TabSender" Header="Формирование группы рассылки" Padding="3">
                 <DockPanel>
                     <ToolBarTray DockPanel.Dock="Top">
@@ -158,13 +198,14 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
                     <StackPanel Grid.Column="0">
-                        <Calendar x:Name="CldSchedulDateTimes" SelectionMode="MultipleRange" 
-                                  DisplayDate="{Binding CldSchedulDateTimes}" />
+                        <Calendar x:Name="CldSchedulDateTimes" SelectionMode="SingleDate" 
+                                  SelectedDate="{Binding CalendarScheduler, UpdateSourceTrigger=PropertyChanged}" />
 
-                        <xctk:TimePicker x:Name="TpTimePicker" Text="{Binding TpTimePicker}" Margin="0,0,0,3" />
+                        <xctk:TimePicker x:Name="TpTimePicker" Text="{Binding TpTimePicker, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,3" />
 
                         <Button x:Name="BtnSendClock" Height="30" Command="{Binding BtnSendClockOnClickCommand}">
                             <Button.Content>
@@ -183,29 +224,69 @@
                                 </StackPanel>
                             </Button.Content>
                         </Button>
+
+                        <DockPanel Margin="0,10,0,0">
+                            <Button DockPanel.Dock="Top" Command="{Binding EmailsTimeDictionaryAddCommand}">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="/img/add.png" Width="16" Height="16"></Image>
+                                        <TextBlock Margin="3,0,0,0" Text="Добавить письмо"></TextBlock>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+
+                            <ListView ItemsSource="{Binding EmailsTimeDictionary}" 
+                                      SelectedItem="{Binding EmailsTimeDictionaryEntry}">
+                                <ListView.ItemTemplate>
+                                    <DataTemplate>
+
+                                        <DockPanel>
+                                            <TextBlock Text="{Binding DataSend, UpdateSourceTrigger=PropertyChanged, StringFormat=dd.MM.yyyy}" 
+                                                       VerticalAlignment="Center" Margin="0,0,5,0"/>
+                                            <TextBlock Text="{Binding TimeSend, UpdateSourceTrigger=PropertyChanged}" 
+                                                       VerticalAlignment="Center"/>
+                                            <Button Margin="5,0,0,0" 
+                                                    Command="{Binding DataContext.EmailsTimeDictionaryRemoveCommand, ElementName=MainTabControl}"
+                                                    CommandParameter="{Binding}">
+                                                <Image Source="/img/delete.png" Height="20" Width="20"></Image>
+                                            </Button>
+                                        </DockPanel>
+
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <Setter Property="BorderBrush" Value="GreenYellow"></Setter>
+                                        <Setter Property="BorderThickness" Value="0,0,0,2"></Setter>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                            </ListView>
+
+                        </DockPanel>
                     </StackPanel>
-                </Grid>
-            </TabItem>
 
-            <TabItem x:Name="TabEditMail" Header="Редактор писем"  Padding="3">
-                <Grid Margin="3">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
+                    <Grid Grid.Column="1" Margin="3">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
 
-                    <StackPanel Grid.Row="0">
-                        <Label>Тема сообщения</Label>
-                        <TextBox Text="{Binding TbSubject}"></TextBox>
-                    </StackPanel>
+                        <StackPanel Grid.Row="0">
+                            <Label>Тема сообщения</Label>
+                            <TextBox Text="{Binding TbSubject, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        </StackPanel>
 
-                    <Label Grid.Row="1">Текст сообщения</Label>
-                    <xctk:RichTextBox Grid.Row="2" Text="{Binding RtbBodyMail}" VerticalAlignment="Stretch">
-                        <xctk:RichTextBox.TextFormatter>
-                            <xctk:PlainTextFormatter />
-                        </xctk:RichTextBox.TextFormatter>
-                    </xctk:RichTextBox>
+                        <Label Grid.Row="1">Текст сообщения</Label>
+                        <xctk:RichTextBox Grid.Row="2" Text="{Binding RtbBodyMail, UpdateSourceTrigger=PropertyChanged}" 
+                                          VerticalAlignment="Stretch" Margin="5,0,5,5">
+                            <xctk:RichTextBox.TextFormatter>
+                                <xctk:PlainTextFormatter />
+                            </xctk:RichTextBox.TextFormatter>
+                        </xctk:RichTextBox>
+                    </Grid>
+
                 </Grid>
             </TabItem>
         </TabControl>
