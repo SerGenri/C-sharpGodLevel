@@ -1,0 +1,14 @@
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppThread\bin\Release\WpfAppThread.exe.config
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppThread\bin\Release\WpfAppThread.exe
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppThread\bin\Release\WpfAppThread.pdb
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppThread\obj\Release\MainWindow.g.cs
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppThread\obj\Release\App.g.cs
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppThread\obj\Release\WpfAppThread_MarkupCompile.cache
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppThread\obj\Release\WpfAppThread_MarkupCompile.lref
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppThread\obj\Release\MainWindow.baml
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppThread\obj\Release\WpfAppThread.g.resources
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppThread\obj\Release\WpfAppThread.Properties.Resources.resources
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppThread\obj\Release\WpfAppThread.csproj.GenerateResource.cache
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppThread\obj\Release\WpfAppThread.csproj.CoreCompileInputs.cache
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppThread\obj\Release\WpfAppThread.exe
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppThread\obj\Release\WpfAppThread.pdb
