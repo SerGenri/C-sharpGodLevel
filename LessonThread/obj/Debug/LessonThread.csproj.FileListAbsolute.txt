@@ -1,0 +1,7 @@
+R:\Ser-Genri\GitHub\C-sharpGodLevel\LessonThread\bin\Debug\LessonThread.exe.config
+R:\Ser-Genri\GitHub\C-sharpGodLevel\LessonThread\bin\Debug\LessonThread.exe
+R:\Ser-Genri\GitHub\C-sharpGodLevel\LessonThread\bin\Debug\LessonThread.pdb
+R:\Ser-Genri\GitHub\C-sharpGodLevel\LessonThread\obj\Debug\LessonThread.csprojAssemblyReference.cache
+R:\Ser-Genri\GitHub\C-sharpGodLevel\LessonThread\obj\Debug\LessonThread.csproj.CoreCompileInputs.cache
+R:\Ser-Genri\GitHub\C-sharpGodLevel\LessonThread\obj\Debug\LessonThread.exe
+R:\Ser-Genri\GitHub\C-sharpGodLevel\LessonThread\obj\Debug\LessonThread.pdb
