@@ -79,7 +79,7 @@ namespace WpfAppMailSender
         }
 
 
-        private void TimerOnTick(object sender, EventArgs e)
+        private async void TimerOnTick(object sender, EventArgs e)
         {
             if (EmailsTimeDictionary.Count == 0)
             {
@@ -104,9 +104,9 @@ namespace WpfAppMailSender
                         try
                         {
                             EmailSendServiceClass emailSender = new EmailSendServiceClass(StrLogin​, StrPass, StrMailAddressFrom,
-                                emailDataTimeTextClass.Subject, emailDataTimeTextClass.Body, true, StrServerName, ServerPort);
+                                    emailDataTimeTextClass.Subject, emailDataTimeTextClass.Body, true, StrServerName, ServerPort);
 
-                            emailSender.SendMails(ListEmails);
+                            await emailSender.SendMails(ListEmails);
 
                             EmailsTimeDictionary.Remove(emailDataTimeTextClass);
                         }

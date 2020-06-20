@@ -37,6 +37,8 @@ namespace WpfAppMailSender.ViewModel
             CalendarScheduler = DateTime.Now;
 
             EmailsTimeDictionary = new ObservableCollection<EmailDataTimeTextClass>();
+
+            BoolBtnSendClockOnClickCommandWork = true;
         }
 
         #region Sender Edit
@@ -524,6 +526,8 @@ namespace WpfAppMailSender.ViewModel
                     MessageErrorWindow("Ошибка при отправке почты");
                 }
             }
+
+            BoolBtnSendClockOnClickCommandWork = true;
         }
 
 
@@ -534,7 +538,7 @@ namespace WpfAppMailSender.ViewModel
             get
             {
                 return _btnSendAtOnceOnClick ??
-                       (_btnSendAtOnceOnClick = new MyRelayCommand(obj =>
+                       (_btnSendAtOnceOnClick = new MyRelayCommand(async obj =>
                        {
                            string strLogin = SendersDictionaryEntry.Key;
                            string strPass = EncrypterDll.Encrypter.Deencrypt(SendersDictionaryEntry.Value);
@@ -558,10 +562,10 @@ namespace WpfAppMailSender.ViewModel
                                //отправка на список
                                try
                                {
-                                   EmailSendServiceClass emailSender = new EmailSendServiceClass(strLogin, strPass, strMailAddressFrom, 
+                                   EmailSendServiceClass emailSender = new EmailSendServiceClass(strLogin, strPass, strMailAddressFrom,
                                        strSubject, strBody, true, strServerName, serverPort);
 
-                                   if (emailSender.SendMails(listEmails))
+                                   if (await emailSender.SendMails(listEmails))
                                    {
                                        if (EmailsTimeDictionaryEntry != null)
                                            EmailsTimeDictionary.Remove(EmailsTimeDictionaryEntry);
@@ -583,6 +587,7 @@ namespace WpfAppMailSender.ViewModel
         }
 
 
+        public bool BoolBtnSendClockOnClickCommandWork { get; set; }
         private MyRelayCommand _btnSendClockOnClick;
         public MyRelayCommand BtnSendClockOnClickCommand
         {
@@ -591,6 +596,8 @@ namespace WpfAppMailSender.ViewModel
                 return _btnSendClockOnClick ??
                        (_btnSendClockOnClick = new MyRelayCommand(obj =>
                        {
+                           BoolBtnSendClockOnClickCommandWork = false;
+
                            string strLogin = SendersDictionaryEntry.Key;
                            string strPass = EncrypterDll.Encrypter.Deencrypt(SendersDictionaryEntry.Value);
                            string strMailAddressFrom = SendersDictionaryEntry.Key;
@@ -625,7 +632,7 @@ namespace WpfAppMailSender.ViewModel
                                MessageErrorWindow("Список адресатов пуст");
                            }
 
-                       }));
+                       }, obj => EmailsTimeDictionary?.Count > 0 && BoolBtnSendClockOnClickCommandWork));
             }
         }
 
