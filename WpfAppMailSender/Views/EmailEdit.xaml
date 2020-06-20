@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:WpfAppMailSender.Views"
+             xmlns:validationRules="clr-namespace:WpfAppMailSender.ValidationRules"
              mc:Ignorable="d" 
              DataContext="{Binding Main, Source={StaticResource Locator}}"
              d:DesignHeight="450" d:DesignWidth="800" x:Name="Main">
@@ -11,15 +12,38 @@
     <StackPanel DataContext="{Binding CurrentEmail}">
 
         <StackPanel>
+            <Label Content="ID"></Label>
+            <TextBox IsEnabled="{Binding DataContext.TextBoxLock, ElementName=Main}">
+                <TextBox.Text>
+                    <Binding Path="Id" NotifyOnValidationError="True" ValidatesOnDataErrors="True" 
+                             UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validationRules:IdValidate />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+        </StackPanel>
+
+        <StackPanel>
             <Label Content="Почта"></Label>
-            <TextBox Text="{Binding EmailAddress, UpdateSourceTrigger=PropertyChanged}" 
-                     IsEnabled="{Binding DataContext.TextBoxLock, ElementName=Main}"></TextBox>
+            <TextBox IsEnabled="{Binding DataContext.TextBoxLock, ElementName=Main}">
+                <TextBox.Text>
+                    <Binding Path="EmailAddress" NotifyOnValidationError="True" ValidatesOnDataErrors="True" 
+                             UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <ExceptionValidationRule />
+                            <validationRules:EmailAddressValidate />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
         </StackPanel>
 
         <StackPanel>
             <Label Content="Имя отправителя"></Label>
             <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}"
-                     IsEnabled="{Binding DataContext.TextBoxLock, ElementName=Main}"></TextBox>
+                     IsEnabled="{Binding DataContext.TextBoxLock, ElementName=Main}" />
         </StackPanel>
 
         <UniformGrid>
@@ -27,7 +51,7 @@
                     Margin="3" Padding="7" >
             </Button>
 
-            <Button Content="Сохранить" Command="{Binding DataContext.SaveChangesEmailCommand, ElementName=Main}"
+            <Button x:Name="BtnSave" Content="Сохранить" Command="{Binding DataContext.SaveChangesEmailCommand, ElementName=Main}"
                     Margin="3" Padding="7">
             </Button>
         </UniformGrid>

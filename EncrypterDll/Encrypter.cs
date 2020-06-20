@@ -10,7 +10,8 @@ namespace EncrypterDll
         /// <param name="str"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static string Encrypt(string str, int key = 42) => new string(str.Select(c => (char) (c + key)).ToArray());
+        public static string Encrypt(string str, int key = 1) 
+            => new string(str.Select(c => (char) (c + key)).ToArray());
 
         /// <summary>
         /// Расшифровать
@@ -18,7 +19,8 @@ namespace EncrypterDll
         /// <param name="str"></param>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static string Deencrypt(string str, int key = 42) => new string(str.Select(c => (char)(c - key)).ToArray());
+        public static string Deencrypt(string str, int key = 1) 
+            => new string(str.Select(c => (char)(c - key)).ToArray());
 
     }
 }

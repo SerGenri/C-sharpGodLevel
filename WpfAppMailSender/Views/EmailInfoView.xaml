@@ -19,12 +19,12 @@
 
         <StackPanel DockPanel.Dock="Top">
             <Label Content="Поиск"></Label>
-            <TextBox Text="{Binding EmailFilterText, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox Text="{Binding EmailFilterText, UpdateSourceTrigger=PropertyChanged, Delay=1000}"></TextBox>
         </StackPanel>
 
         <Button Content="Отобразить данные" Command="{Binding ReadAllMailsCommand}" DockPanel.Dock="Bottom"/>
 
-        <DataGrid x:Name="DgEmails" ItemsSource="{Binding ListEmails}" SelectedItem="{Binding CurrentEmail}"
+        <DataGrid x:Name="DgEmails" ItemsSource="{Binding ListEmailsView}" SelectedItem="{Binding CurrentEmail}"
                   AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="№" Binding="{Binding Id}" Width="Auto"></DataGridTextColumn>

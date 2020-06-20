@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace EmailSendServiceDll
 {
@@ -62,7 +63,7 @@ namespace EmailSendServiceDll
         /// </summary>
         /// <param name="strMailAddressTo">Адрес получателя</param>
         /// <returns>Результат отправки True/False</returns>
-        public bool Send(string strMailAddressTo)
+        public async Task<bool> Send(string strMailAddressTo)
         {
             try
             {
@@ -74,7 +75,8 @@ namespace EmailSendServiceDll
                         Credentials = new NetworkCredential(StrLogin, StrPass)
                     })
                     {
-                        client.Send(message);
+                        //client.Send(message);
+                        await client.SendMailAsync(message);
                     }
                 }
 
@@ -92,11 +94,11 @@ namespace EmailSendServiceDll
         /// </summary>
         /// <param name="emails">Список получателей</param>
         /// <returns>Результат отправки True/False</returns>
-        public bool SendMails(List<string> emails)
+        public async Task<bool> SendMails(List<string> emails)
         {
             foreach (string itemEmail in emails)
             {
-                Send(itemEmail);
+                await Send(itemEmail);
             }
 
             return true;

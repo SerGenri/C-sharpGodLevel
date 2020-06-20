@@ -24,6 +24,28 @@
                 <Setter Property="FontSize" Value="14" />
                 <Setter Property="Margin" Value="5,0,5,5" />
                 <Setter Property="TextWrapping" Value="Wrap" />
+
+                <Setter Property="Validation.ErrorTemplate">
+                     <Setter.Value>
+                         <ControlTemplate>
+                             <DockPanel LastChildFill="True" 
+                                        ToolTip="{Binding Path=AdornedElement.(Validation.Errors)[0].ErrorContent, ElementName=ValidationElement}">
+
+                                 <TextBlock DockPanel.Dock="Right" Text="*" FontWeight="Bold" Foreground="Crimson"></TextBlock>
+
+                                 <Border BorderBrush="Crimson" BorderThickness="2">
+                                    <AdornedElementPlaceholder Name="ValidationElement" />
+                                 </Border>
+
+                             </DockPanel>
+                         </ControlTemplate>
+                     </Setter.Value>
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError" Value="True">
+                        <Setter Property="Opacity" Value="0.3"></Setter>
+                    </Trigger>
+                </Style.Triggers>
             </Style>
 
         </ResourceDictionary>
