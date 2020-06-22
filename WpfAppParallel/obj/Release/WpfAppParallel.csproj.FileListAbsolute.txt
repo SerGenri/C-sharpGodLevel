@@ -1,0 +1,14 @@
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppParallel\bin\Release\WpfAppParallel.exe.config
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppParallel\bin\Release\WpfAppParallel.exe
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppParallel\bin\Release\WpfAppParallel.pdb
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppParallel\obj\Release\MainWindow.g.cs
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppParallel\obj\Release\App.g.cs
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppParallel\obj\Release\WpfAppParallel_MarkupCompile.cache
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppParallel\obj\Release\WpfAppParallel_MarkupCompile.lref
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppParallel\obj\Release\MainWindow.baml
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppParallel\obj\Release\WpfAppParallel.g.resources
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppParallel\obj\Release\WpfAppParallel.Properties.Resources.resources
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppParallel\obj\Release\WpfAppParallel.csproj.GenerateResource.cache
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppParallel\obj\Release\WpfAppParallel.csproj.CoreCompileInputs.cache
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppParallel\obj\Release\WpfAppParallel.exe
+R:\Ser-Genri\GitHub\C-sharpGodLevel\WpfAppParallel\obj\Release\WpfAppParallel.pdb
